@@ -13,6 +13,8 @@
             --bg-light: #f4f7f6;
             --white: #ffffff;
             --success: #28a745;
+            --info-bg: #e3f2fd;
+            --info-text: #0d47a1;
         }
 
         * {
@@ -45,7 +47,7 @@
         /* Header Styles */
         .header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             border-bottom: 2px solid #eee;
             padding-bottom: 20px;
         }
@@ -56,12 +58,6 @@
             margin-bottom: 10px;
         }
 
-        .header h2 {
-            font-size: 1.1rem;
-            color: #666;
-            font-weight: 500;
-        }
-
         /* Progress Bar */
         .progress-container {
             position: sticky;
@@ -70,6 +66,7 @@
             z-index: 100;
             padding: 10px 0 20px 0;
             margin-bottom: 20px;
+            box-shadow: 0 4px 6px -6px #ccc;
         }
 
         .progress-bar {
@@ -114,7 +111,7 @@
             padding: 15px;
             border-radius: 10px;
             font-size: 1.2rem;
-            margin-bottom: 25px;
+            margin-bottom: 10px;
             font-weight: 700;
             border-left: 5px solid var(--primary);
         }
@@ -123,10 +120,56 @@
             font-size: 0.95rem;
             color: #666;
             margin-bottom: 20px;
-            font-style: italic;
-            background: #fff8e1;
-            padding: 10px;
+        }
+
+        /* Legend Box for Scales (NEW) */
+        .legend-box {
+            background-color: var(--info-bg);
+            color: var(--info-text);
+            padding: 15px;
             border-radius: 8px;
+            margin-bottom: 25px;
+            border: 1px solid #bbdefb;
+            font-size: 0.9rem;
+        }
+        
+        .legend-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid rgba(13, 71, 161, 0.2);
+            padding-bottom: 5px;
+        }
+
+        .legend-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 10px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            line-height: 1.3;
+        }
+
+        .legend-number {
+            background: var(--white);
+            color: var(--primary);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+            border: 1px solid var(--primary);
         }
 
         /* Questions */
@@ -162,7 +205,7 @@
             border-color: var(--primary);
         }
 
-        /* Custom Radio/Checkbox */
+        /* Options Grid */
         .options-grid {
             display: flex;
             flex-direction: column;
@@ -197,12 +240,15 @@
             transform: scale(1.2);
         }
 
-        /* Scale (Likert) UX Improvement */
+        /* Improved Scale UI */
+        .scale-wrapper {
+            margin-top: 15px;
+        }
+
         .scale-container {
             display: flex;
             justify-content: space-between;
             gap: 5px;
-            margin-top: 15px;
         }
 
         .scale-item {
@@ -214,21 +260,22 @@
             display: none;
         }
 
-        .scale-label {
+        .scale-button {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 50px;
+            height: 45px;
             border: 2px solid #eee;
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.2s;
             font-weight: bold;
             color: #888;
+            background: white;
         }
 
-        .scale-input:checked + .scale-label {
+        .scale-input:checked + .scale-button {
             background: var(--primary);
             color: white;
             border-color: var(--primary);
@@ -236,12 +283,19 @@
             box-shadow: 0 4px 10px rgba(78, 84, 200, 0.3);
         }
 
-        .scale-legend {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            color: #888;
-            margin-bottom: 5px;
+        /* Dynamic Feedback Text */
+        .scale-feedback {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-top: 8px;
+            min-height: 1.5em; /* Prevent layout jump */
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .scale-feedback.visible {
+            opacity: 1;
         }
 
         /* Navigation */
@@ -279,10 +333,6 @@
             cursor: not-allowed;
         }
 
-        .btn:active {
-            transform: scale(0.98);
-        }
-
         .error-msg {
             color: var(--accent);
             font-size: 0.85rem;
@@ -304,16 +354,19 @@
         /* Mobile Optimization */
         @media (max-width: 600px) {
             .container { padding: 20px; }
-            .scale-container { 
-                display: grid; 
-                grid-template-columns: repeat(5, 1fr); 
-                gap: 4px;
-            }
-            .scale-label { height: 40px; font-size: 0.9rem; }
             
-            /* Specific fix for WHO-5 which has 6 options (0-5) */
-            .scale-container.scale-6 {
-                grid-template-columns: repeat(6, 1fr);
+            /* Make scales wrap if needed or stay tight */
+            .scale-container { 
+                gap: 2px;
+            }
+            .scale-button { 
+                height: 40px; 
+                font-size: 0.9rem; 
+                border-radius: 6px;
+            }
+            
+            .legend-grid {
+                grid-template-columns: 1fr; /* Stack legend on small mobile for readability */
             }
         }
     </style>
@@ -339,6 +392,37 @@
 </div>
 
 <script>
+    // --- Scale Definitions (Detailed Descriptions) ---
+    const scaleLabels = {
+        likert5: [
+            "Sangat Tidak Setuju",
+            "Tidak Setuju",
+            "Ragu-ragu / Netral",
+            "Setuju",
+            "Sangat Setuju"
+        ],
+        who5: [
+            "Tidak Pernah",
+            "Jarang (Beberapa kali)",
+            "Kadang-kadang (Kurang dari separuh waktu)",
+            "Cukup Sering (Lebih dari separuh waktu)",
+            "Sering (Sebagian besar waktu)",
+            "Sepanjang Waktu"
+        ],
+        frequency: [
+            "Tidak Pernah",
+            "1-3 kali",
+            "> 3 kali",
+            "Hampir tiap hari"
+        ],
+        frequency_sport: [
+            "Tidak Pernah",
+            "1x / minggu",
+            "2-3x / minggu",
+            "> 3x / minggu"
+        ]
+    };
+
     // --- Data Definition ---
     const questionnaireData = [
         {
@@ -415,7 +499,7 @@
         },
         {
             id: "pengetahuan_kespro",
-            title: "Bagian II: Pengetahuan Kesehatan Reproduksi",
+            title: "Bagian II: Pengetahuan Kespro",
             description: "Pilihlah satu jawaban yang menurut Anda paling tepat.",
             questions: [
                 { id: "kespro_1", text: "1. Masa pubertas terjadi ketika tubuh mengalami perubahan fisik yang disebabkan oleh...", type: "radio", required: true, options: [{val:"a", label:"Penurunan hormon"}, {val:"b", label:"Peningkatan hormon tertentu"}, {val:"c", label:"Kekurangan gizi"}, {val:"d", label:"Infeksi"}] },
@@ -450,7 +534,8 @@
         {
             id: "sikap",
             title: "Bagian IV: Sikap (Attitude)",
-            description: "Keterangan: 1 = Sangat Tidak Setuju, 5 = Sangat Setuju",
+            description: "Pilihlah angka yang sesuai dengan pendapat Anda. Keterangan lengkap ada di tabel di bawah.",
+            scaleType: "likert5", 
             questions: [
                 "Saya merasa informasi kespro penting bagi remaja.",
                 "Saya percaya menjaga kesehatan mental sama pentingnya dengan fisik.",
@@ -467,11 +552,11 @@
         {
             id: "perilaku",
             title: "Bagian V: Perilaku",
-            description: "Jawablah sesuai kebiasaan Anda.",
+            description: "Jawablah sesuai kebiasaan Anda sehari-hari.",
             questions: [
-                { id: "perilaku_1", text: "1. Dalam 1 bulan terakhir, seberapa sering Anda merasa stres?", type: "radio", required: true, options: [{val:"0", label:"Tidak pernah"}, {val:"1", label:"1-3 kali"}, {val:"2", label:"> 3 kali"}, {val:"3", label:"Hampir tiap hari"}] },
+                { id: "perilaku_1", text: "1. Dalam 1 bulan terakhir, seberapa sering Anda merasa stres?", type: "radio", required: true, options: scaleLabels.frequency.map((l, i) => ({val: i.toString(), label: l})) },
                 { id: "perilaku_2", text: "2. Dalam 2 minggu terakhir, apakah Anda pernah kesulitan tidur?", type: "radio", required: true, options: [{val:"ya", label:"Ya"}, {val:"tidak", label:"Tidak"}] },
-                { id: "perilaku_3", text: "3. Seberapa sering Anda berolahraga?", type: "radio", required: true, options: [{val:"0", label:"Tidak pernah"}, {val:"1", label:"1x/minggu"}, {val:"2", label:"2-3x/minggu"}, {val:"3", label:">3x/minggu"}] },
+                { id: "perilaku_3", text: "3. Seberapa sering Anda berolahraga?", type: "radio", required: true, options: scaleLabels.frequency_sport.map((l, i) => ({val: i.toString(), label: l})) },
                 { id: "perilaku_4", text: "4. Saya menghindari perilaku seksual berisiko.", type: "radio", required: true, options: [{val:"ya", label:"Ya"}, {val:"tidak", label:"Tidak"}] },
                 { id: "perilaku_5", text: "5. Pernah berkonsultasi masalah pribadi ke orang dewasa terpercaya.", type: "radio", required: true, options: [{val:"ya", label:"Ya"}, {val:"tidak", label:"Tidak"}] },
                 { id: "perilaku_6", text: "6. Memeriksa informasi kesehatan sebelum mempercayainya.", type: "radio", required: true, options: [{val:"ya", label:"Ya"}, {val:"tidak", label:"Tidak"}] },
@@ -484,7 +569,8 @@
         {
             id: "self_efficacy",
             title: "Bagian VI: Kemampuan Diri (Self-Efficacy)",
-            description: "Keterangan: 1 = Sangat Tidak Setuju, 5 = Sangat Setuju",
+            description: "Seberapa yakin Anda dengan kemampuan diri Anda? (Lihat keterangan skala di bawah)",
+            scaleType: "likert5",
             questions: [
                 "Mampu memahami info kesehatan dari aplikasi/online.",
                 "Mampu mengambil keputusan sehat terkait pergaulan.",
@@ -501,7 +587,8 @@
         {
             id: "who5",
             title: "Bagian VII: WHO-5 Well Being Index",
-            description: "Dalam 2 minggu terakhir. (0 = Tidak Pernah, 5 = Selalu)",
+            description: "Bagaimana perasaan Anda dalam 2 minggu terakhir? (Lihat keterangan skala di bawah)",
+            scaleType: "who5", // Uses the WHO5 detailed legend
             questions: [
                 "Saya merasa ceria dan bersemangat.",
                 "Saya merasa tenang dan damai.",
@@ -525,33 +612,55 @@
     function renderSection(index) {
         const section = questionnaireData[index];
         const container = document.getElementById('formContent');
-        container.innerHTML = ''; // Clear previous
+        container.innerHTML = ''; 
 
         // Header
         const sectionDiv = document.createElement('div');
         sectionDiv.className = 'section active';
         
-        sectionDiv.innerHTML = `
-            <div class="section-title">${section.title}</div>
-            ${section.description ? `<div class="section-desc">${section.description}</div>` : ''}
-        `;
+        let headerHTML = `<div class="section-title">${section.title}</div>`;
+        if (section.description) headerHTML += `<div class="section-desc">${section.description}</div>`;
+        
+        // --- LEGEND BOX LOGIC (New) ---
+        // If the section uses a specific scale type, render the legend box
+        if (section.scaleType && scaleLabels[section.scaleType]) {
+            const labels = scaleLabels[section.scaleType];
+            const startVal = section.scaleType === 'who5' ? 0 : 1;
+            
+            let legendHTML = `
+                <div class="legend-box">
+                    <span class="legend-title">Keterangan Skala:</span>
+                    <div class="legend-grid">
+            `;
+            
+            labels.forEach((label, i) => {
+                legendHTML += `
+                    <div class="legend-item">
+                        <span class="legend-number">${startVal + i}</span>
+                        <span>${label}</span>
+                    </div>
+                `;
+            });
+            
+            legendHTML += `</div></div>`;
+            headerHTML += legendHTML;
+        }
+
+        sectionDiv.innerHTML = headerHTML;
 
         // Questions
         section.questions.forEach(q => {
             const qGroup = document.createElement('div');
             qGroup.className = 'question-group';
 
-            // HTML content type (for info only)
             if (q.type === 'html') {
                 qGroup.innerHTML = q.content;
             } else {
-                // Label
                 const label = document.createElement('label');
                 label.className = 'question-label';
                 label.innerHTML = `${q.text} ${q.required ? '<span class="required-mark">*</span>' : ''}`;
                 qGroup.appendChild(label);
 
-                // Inputs
                 if (q.type === 'text' || q.type === 'number' || q.type === 'tel') {
                     qGroup.innerHTML += `<input type="${q.type}" id="${q.id}" class="form-input" value="${formData[q.id] || ''}" onchange="saveData('${q.id}', this.value)">`;
                 } 
@@ -586,23 +695,36 @@
                 else if (q.type === 'scale') {
                     const min = q.min;
                     const max = q.max;
-                    let scales = `<div class="scale-legend"><span>${min===0?'Tidak Pernah':'Sangat Tidak Setuju'}</span><span>${min===0?'Selalu':'Sangat Setuju'}</span></div>`;
-                    scales += `<div class="scale-container ${max === 5 && min === 0 ? 'scale-6' : ''}">`; // Add class for 6 cols if WHO-5
+                    // Pass the scaleType to the function to generate dynamic feedback text
+                    const scaleType = section.scaleType || 'likert5';
+                    
+                    let scales = `<div class="scale-wrapper"><div class="scale-container">`;
                     
                     for (let i = min; i <= max; i++) {
                         const checked = formData[q.id] == i ? 'checked' : '';
                         scales += `
                             <div class="scale-item">
-                                <input type="radio" name="${q.id}" id="${q.id}_${i}" value="${i}" class="scale-input" ${checked} onchange="saveData('${q.id}', '${i}')">
-                                <label for="${q.id}_${i}" class="scale-label">${i}</label>
+                                <input type="radio" name="${q.id}" id="${q.id}_${i}" value="${i}" class="scale-input" ${checked} onchange="handleScaleClick(this, '${q.id}', '${i}', '${scaleType}', ${min})">
+                                <label for="${q.id}_${i}" class="scale-button">${i}</label>
                             </div>
                         `;
                     }
                     scales += `</div>`;
+                    
+                    // Dynamic Feedback Element
+                    const savedVal = formData[q.id];
+                    let feedbackText = "";
+                    if(savedVal) {
+                        const labelArr = scaleLabels[scaleType];
+                        const index = parseInt(savedVal) - min;
+                        if(labelArr && labelArr[index]) feedbackText = "Anda memilih: " + labelArr[index];
+                    }
+                    
+                    scales += `<div id="feedback_${q.id}" class="scale-feedback ${savedVal ? 'visible' : ''}">${feedbackText}</div></div>`;
+                    
                     qGroup.innerHTML += scales;
                 }
                 
-                // Error Msg holder
                 qGroup.innerHTML += `<div class="error-msg" id="err_${q.id}">Wajib diisi</div>`;
             }
             sectionDiv.appendChild(qGroup);
@@ -610,7 +732,6 @@
 
         container.appendChild(sectionDiv);
 
-        // Buttons
         document.getElementById('btnPrev').style.display = index === 0 ? 'none' : 'inline-block';
         document.getElementById('btnNext').innerText = index === questionnaireData.length - 1 ? 'Kirim' : 'Lanjut';
     }
@@ -619,20 +740,15 @@
 
     function toggleSelect(el, type, id, val) {
         const input = el.querySelector('input');
-        
         if (type === 'radio') {
-            // Deselect siblings visual
             el.parentElement.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
             el.classList.add('selected');
             input.checked = true;
             saveData(id, val);
         } else {
-            // Checkbox
             input.checked = !input.checked;
             if (input.checked) el.classList.add('selected');
             else el.classList.remove('selected');
-            
-            // Handle array data
             let current = formData[id] || [];
             if (input.checked) current.push(val);
             else current = current.filter(v => v !== val);
@@ -640,9 +756,22 @@
         }
     }
 
+    // NEW: Handle Scale Click with Text Feedback
+    function handleScaleClick(el, id, val, scaleType, minVal) {
+        saveData(id, val);
+        
+        // Update feedback text
+        const feedbackEl = document.getElementById(`feedback_${id}`);
+        if(feedbackEl && scaleLabels[scaleType]) {
+            const index = parseInt(val) - minVal;
+            const text = scaleLabels[scaleType][index];
+            feedbackEl.innerText = "Anda memilih: " + text;
+            feedbackEl.classList.add('visible');
+        }
+    }
+
     function saveData(key, val) {
         formData[key] = val;
-        // Remove error if exists
         const err = document.getElementById(`err_${key}`);
         if(err) err.style.display = 'none';
     }
@@ -651,7 +780,6 @@
         const section = questionnaireData[currentStep];
         let valid = true;
         
-        // Check Consent specifically
         if (section.id === 'consent') {
             if (formData['consent_agreement'] !== 'setuju') {
                 alert("Maaf, Anda harus menyetujui pernyataan kesediaan untuk melanjutkan.");
@@ -667,8 +795,6 @@
                 if (!val || (Array.isArray(val) && val.length === 0)) {
                     if(err) err.style.display = 'block';
                     valid = false;
-                    
-                    // Simple scroll to error
                     if(!document.querySelector('.error-active')) {
                         err.parentElement.scrollIntoView({behavior: 'smooth', block: 'center'});
                         err.classList.add('error-active');
@@ -677,14 +803,12 @@
             }
         });
 
-        // clear error flags
         document.querySelectorAll('.error-active').forEach(e => e.classList.remove('error-active'));
         return valid;
     }
 
     function nextSection() {
         if (!validateCurrentStep()) return;
-
         if (currentStep < questionnaireData.length - 1) {
             currentStep++;
             renderSection(currentStep);
@@ -710,32 +834,23 @@
         document.getElementById('progressText').innerText = `Bagian ${currentStep + 1} dari ${questionnaireData.length}`;
     }
 
-    // --- Updated Submission Logic ---
     function submitForm() {
         const btn = document.getElementById('btnNext');
         const originalText = btn.innerText;
         btn.innerText = 'Mengirim...';
         btn.disabled = true;
 
-        // Your specific Google Apps Script URL
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyKkOsZLmrJ7jxxjxD1bfBOojMwZbvY1QQTzkqe4ugfjnXSp7nFqHKMHBrheclxPc09/exec'; 
 
-        // Add timestamp for the data
         formData['timestamp'] = new Date().toISOString();
-
-        console.log("Sending data to:", SCRIPT_URL);
 
         fetch(SCRIPT_URL, {
             method: 'POST',
-            mode: 'no-cors', // Critical for Google Sheets
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formData)
         })
         .then(() => {
-            // Google Sheets "no-cors" mode doesn't return a readable JSON response.
-            // If it reaches here, the request was successfully SENT.
             document.querySelector('.container').innerHTML = `
                 <div class="success-screen">
                     <div class="success-icon">✓</div>
@@ -754,11 +869,8 @@
         });
     }
 
-    // Start
     init();
-
 </script>
 
 </body>
-
 </html>
