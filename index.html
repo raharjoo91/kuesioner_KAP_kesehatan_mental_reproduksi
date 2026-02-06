@@ -122,7 +122,7 @@
             margin-bottom: 20px;
         }
 
-        /* Legend Box for Scales (NEW) */
+        /* Legend Box for Scales */
         .legend-box {
             background-color: var(--info-bg);
             color: var(--info-text);
@@ -355,7 +355,6 @@
         @media (max-width: 600px) {
             .container { padding: 20px; }
             
-            /* Make scales wrap if needed or stay tight */
             .scale-container { 
                 gap: 2px;
             }
@@ -366,7 +365,7 @@
             }
             
             .legend-grid {
-                grid-template-columns: 1fr; /* Stack legend on small mobile for readability */
+                grid-template-columns: 1fr; /* Stack legend on small mobile */
             }
         }
     </style>
@@ -392,7 +391,7 @@
 </div>
 
 <script>
-    // --- Scale Definitions (Detailed Descriptions) ---
+    // --- Scale Definitions ---
     const scaleLabels = {
         likert5: [
             "Sangat Tidak Setuju",
@@ -408,18 +407,6 @@
             "Cukup Sering (Lebih dari separuh waktu)",
             "Sering (Sebagian besar waktu)",
             "Sepanjang Waktu"
-        ],
-        frequency: [
-            "Tidak Pernah",
-            "1-3 kali",
-            "> 3 kali",
-            "Hampir tiap hari"
-        ],
-        frequency_sport: [
-            "Tidak Pernah",
-            "1x / minggu",
-            "2-3x / minggu",
-            "> 3x / minggu"
         ]
     };
 
@@ -436,7 +423,7 @@
                     content: `
                         <p><strong>Judul Penelitian:</strong> Evaluasi Efektivitas Program Posyandu Remaja dalam Meningkatkan Kesadaran Mental dan Reproduksi Remaja di Kota Depok.</p>
                         <br>
-                        <p>Kami mengundang Saudara/i untuk berpartisipasi. Partisipasi bersifat <strong>sukarela</strong>. Data Anda akan dijaga <strong>kerahasiaannya</strong>. Pengisian memakan waktu sekitar 25-30 menit.</p>
+                        <p>Kami mengundang Saudara/i untuk berpartisipasi. Partisipasi bersifat <strong>sukarela</strong>. Data Anda akan dijaga <strong>kerahasiaannya</strong>.</p>
                     `
                 },
                 {
@@ -497,26 +484,95 @@
                 }
             ]
         },
+        // --- Bagian IB: Pengetahuan Kespro ---
         {
             id: "pengetahuan_kespro",
-            title: "Bagian II: Pengetahuan Kespro",
+            title: "Bagian IB: Pengetahuan Kesehatan Reproduksi",
             description: "Pilihlah satu jawaban yang menurut Anda paling tepat.",
             questions: [
-                { id: "kespro_1", text: "1. Masa pubertas terjadi ketika tubuh mengalami perubahan fisik yang disebabkan oleh...", type: "radio", required: true, options: [{val:"a", label:"Penurunan hormon"}, {val:"b", label:"Peningkatan hormon tertentu"}, {val:"c", label:"Kekurangan gizi"}, {val:"d", label:"Infeksi"}] },
-                { id: "kespro_2", text: "2. Kehamilan dapat terjadi jika...", type: "radio", required: true, options: [{val:"a", label:"Telah mengalami menstruasi"}, {val:"b", label:"Hanya setelah usia 18 tahun"}, {val:"c", label:"Adanya pertemuan sperma dan sel telur"}, {val:"d", label:"Setelah tes kehamilan positif"}] },
-                { id: "kespro_3", text: "3. Kontrasepsi darurat paling efektif digunakan dalam waktu...", type: "radio", required: true, options: [{val:"a", label:"24 – 72 jam setelah berhubungan"}, {val:"b", label:"1 minggu setelah berhubungan"}, {val:"c", label:"Setelah menstruasi"}, {val:"d", label:"Kapan saja"}] },
-                { id: "kespro_4", text: "4. Yang termasuk tanda bahaya infeksi menular seksual (IMS) adalah...", type: "radio", required: true, options: [{val:"a", label:"Bau mulut"}, {val:"b", label:"Keputihan berbau/nyeri saat BAK"}, {val:"c", label:"Demam batuk pilek"}, {val:"d", label:"Sakit kepala"}] },
-                { id: "kespro_5", text: "5. Remaja membutuhkan edukasi kespro karena...", type: "radio", required: true, options: [{val:"a", label:"Mencegah kehamilan tidak diinginkan"}, {val:"b", label:"Menghindari perilaku berisiko"}, {val:"c", label:"Membuat keputusan sehat"}, {val:"d", label:"Semua benar"}] },
-                { id: "kespro_6", text: "6. PMS (Premenstrual Syndrome) biasanya ditandai dengan...", type: "radio", required: true, options: [{val:"a", label:"Mual pusing 1 bulan"}, {val:"b", label:"Sedikit bercak darah"}, {val:"c", label:"Mood swing dan nyeri perut sebelum haid"}, {val:"d", label:"Energi berlebihan"}] },
-                { id: "kespro_7", text: "7. Pernikahan dini berisiko karena...", type: "radio", required: true, options: [{val:"a", label:"Tubuh remaja belum siap hamil"}, {val:"b", label:"Tinggi badan berhenti"}, {val:"c", label:"Menyebabkan kematian"}, {val:"d", label:"Tidak memengaruhi apapun"}] },
-                { id: "kespro_8", text: "8. Cara mencegah IMS paling efektif bagi remaja...", type: "radio", required: true, options: [{val:"a", label:"Menghindari perilaku berisiko"}, {val:"b", label:"Minum vitamin"}, {val:"c", label:"Olahraga"}, {val:"d", label:"Jauhi internet"}] },
-                { id: "kespro_9", text: "9. Remaja perempuan dapat mengalami anemia karena...", type: "radio", required: true, options: [{val:"a", label:"Gula berlebih"}, {val:"b", label:"Kehilangan darah saat menstruasi"}, {val:"c", label:"Kurang minum"}, {val:"d", label:"Tidur siang"}] },
-                { id: "kespro_10", text: "10. Salah satu mitos tentang menstruasi adalah...", type: "radio", required: true, options: [{val:"a", label:"Normal tiap 21-35 hari"}, {val:"b", label:"Nyeri ringan tidak wajar"}, {val:"c", label:"Proses biologis"}, {val:"d", label:"Tidak boleh keramas saat menstruasi"}] }
+                { 
+                    id: "kespro_1", text: "1. Masa pubertas terjadi ketika tubuh mengalami perubahan fisik yang disebabkan oleh...", type: "radio", required: true, 
+                    options: [{val:"a", label:"Penurunan hormon"}, {val:"b", label:"Peningkatan hormon tertentu"}, {val:"c", label:"Kekurangan gizi"}, {val:"d", label:"Infeksi"}] 
+                },
+                { 
+                    id: "kespro_2", text: "2. Kehamilan dapat terjadi jika...", type: "radio", required: true, 
+                    options: [{val:"a", label:"Telah mengalami menstruasi"}, {val:"b", label:"Hanya setelah usia 18 tahun"}, {val:"c", label:"Adanya pertemuan sperma dan sel telur"}, {val:"d", label:"Setelah tes kehamilan positif"}] 
+                },
+                { 
+                    id: "kespro_3", text: "3. Kontrasepsi darurat paling efektif digunakan dalam waktu...", type: "radio", required: true, 
+                    options: [{val:"a", label:"24 – 72 jam setelah berhubungan"}, {val:"b", label:"1 minggu setelah berhubungan"}, {val:"c", label:"Setelah menstruasi"}, {val:"d", label:"Kapan saja"}] 
+                },
+                { 
+                    id: "kespro_4", text: "4. Yang termasuk tanda bahaya infeksi menular seksual (IMS) adalah...", type: "radio", required: true, 
+                    options: [{val:"a", label:"Bau mulut"}, {val:"b", label:"Keputihan berbau/nyeri saat BAK"}, {val:"c", label:"Demam batuk pilek"}, {val:"d", label:"Sakit kepala"}] 
+                },
+                { 
+                    id: "kespro_5", text: "5. Remaja membutuhkan edukasi kespro karena...", type: "radio", required: true, 
+                    options: [{val:"a", label:"Mencegah kehamilan tidak diinginkan"}, {val:"b", label:"Menghindari perilaku berisiko"}, {val:"c", label:"Membuat keputusan sehat"}, {val:"d", label:"Semua benar"}] 
+                },
+                { 
+                    id: "kespro_6", text: "6. PMS (Premenstrual Syndrome) biasanya ditandai dengan...", type: "radio", required: true, 
+                    options: [{val:"a", label:"Mual pusing 1 bulan"}, {val:"b", label:"Sedikit bercak darah"}, {val:"c", label:"Mood swing dan nyeri perut sebelum haid"}, {val:"d", label:"Energi berlebihan"}] 
+                },
+                { 
+                    id: "kespro_7", text: "7. Pernikahan dini berisiko karena...", type: "radio", required: true, 
+                    options: [{val:"a", label:"Tubuh remaja belum siap hamil"}, {val:"b", label:"Tinggi badan berhenti"}, {val:"c", label:"Menyebabkan kematian"}, {val:"d", label:"Tidak memengaruhi apapun"}] 
+                },
+                { 
+                    id: "kespro_8", text: "8. Cara mencegah IMS paling efektif bagi remaja...", type: "radio", required: true, 
+                    options: [{val:"a", label:"Menghindari perilaku berisiko"}, {val:"b", label:"Minum vitamin"}, {val:"c", label:"Olahraga"}, {val:"d", label:"Jauhi internet"}] 
+                },
+                { 
+                    id: "kespro_9", text: "9. Remaja perempuan dapat mengalami anemia karena...", type: "radio", required: true, 
+                    options: [{val:"a", label:"Gula berlebih"}, {val:"b", label:"Kehilangan darah saat menstruasi"}, {val:"c", label:"Kurang minum"}, {val:"d", label:"Tidur siang"}] 
+                },
+                { 
+                    id: "kespro_10", text: "10. Salah satu mitos tentang menstruasi adalah...", type: "radio", required: true, 
+                    options: [{val:"a", label:"Normal tiap 21-35 hari"}, {val:"b", label:"Nyeri ringan tidak wajar"}, {val:"c", label:"Proses biologis"}, {val:"d", label:"Tidak boleh keramas saat menstruasi"}] 
+                }
             ]
         },
+        // --- Bagian IIB: Sikap Kespro ---
+        {
+            id: "sikap_kespro",
+            title: "Bagian IIB: Sikap (Kesehatan Reproduksi)",
+            description: "Pilihlah angka yang sesuai dengan pendapat Anda.",
+            scaleType: "likert5",
+            questions: [
+                "Saya merasa informasi kesehatan reproduksi penting bagi remaja.",
+                "Saya percaya bahwa kesehatan reproduksi merupakan bagian dari kesehatan secara menyeluruh.",
+                "Saya setuju bahwa remaja perlu mendapatkan edukasi kesehatan reproduksi sejak dini.",
+                "Saya menilai edukasi kesehatan reproduksi dapat membantu remaja menghindari perilaku berisiko.",
+                "Saya menganggap informasi kesehatan reproduksi membantu remaja bersikap lebih bertanggung jawab.",
+                "Saya percaya bahwa remaja harus tahu bagaimana mencegah perilaku seksual berisiko.",
+                "Saya setuju bahwa remaja perlu bersikap hati-hati dalam mengambil keputusan kespro.",
+                "Saya menganggap remaja tidak perlu khawatir terhadap dampak perilaku mereka terhadap kespro.",
+                "Saya menilai pembahasan tentang kesehatan reproduksi sebaiknya tidak dilakukan pada usia remaja.",
+                "Saya merasa malu jika harus mencari informasi tentang kesehatan reproduksi."
+            ].map((q, i) => ({ id: `sikap_kespro_${i+1}`, text: `${i+1}. ${q}`, type: "scale", min:1, max:5, required: true }))
+        },
+        // --- Bagian IIIC: Perilaku Kespro ---
+        {
+            id: "perilaku_kespro",
+            title: "Bagian IIIC: Perilaku (Kesehatan Reproduksi)",
+            description: "Jawablah 'Ya' atau 'Tidak' berdasarkan kebiasaan Anda dalam 1 bulan terakhir.",
+            questions: [
+                "Saya menjaga kebersihan organ reproduksi secara rutin.",
+                "Saya mengganti pakaian dalam setiap hari.",
+                "Saya menjaga kebersihan diri selama menstruasi/mimpi basah/masa pubertas.",
+                "Saya mencari informasi kesehatan reproduksi dari sumber yang terpercaya.",
+                "Saya pernah berkonsultasi tentang masalah pribadi kepada orang dewasa yang dipercaya.",
+                "Saya mempertimbangkan dampak terhadap kesehatan reproduksi sebelum mengambil keputusan.",
+                "Saya menghindari perilaku seksual berisiko.",
+                "Saya berkonsultasi dengan tenaga kesehatan ketika mengalami masalah kesehatan reproduksi.",
+                "Saya menjaga kebersihan diri setelah aktivitas fisik yang berkeringat.",
+                "Saya menerapkan kebiasaan hidup bersih yang berkaitan langsung dengan kesehatan reproduksi."
+            ].map((q, i) => ({ id: `perilaku_kespro_${i+1}`, text: `${i+1}. ${q}`, type: "radio", required: true, options: [{val:"ya", label:"Ya"}, {val:"tidak", label:"Tidak"}] }))
+        },
+        // --- Bagian IC: Pengetahuan Mental ---
         {
             id: "pengetahuan_mental",
-            title: "Bagian III: Pengetahuan Kesehatan Mental",
+            title: "Bagian IC: Pengetahuan Kesehatan Mental",
             description: "Tentukan apakah pernyataan berikut Benar atau Salah.",
             questions: [
                 { id: "mental_1", text: "1. Stres ringan adalah kondisi yang wajar dialami remaja.", type: "radio", required: true, options: [{val:"benar", label:"Benar"}, {val:"salah", label:"Salah"}] },
@@ -528,48 +584,51 @@
                 { id: "mental_7", text: "7. Menangis dapat menjadi cara tubuh melepaskan emosi.", type: "radio", required: true, options: [{val:"benar", label:"Benar"}, {val:"salah", label:"Salah"}] },
                 { id: "mental_8", text: "8. Kesedihan > 2 minggu adalah tanda depresi.", type: "radio", required: true, options: [{val:"benar", label:"Benar"}, {val:"salah", label:"Salah"}] },
                 { id: "mental_9", text: "9. Remaja tidak boleh pergi ke psikolog.", type: "radio", required: true, options: [{val:"benar", label:"Benar"}, {val:"salah", label:"Salah"}] },
-                { id: "mental_10", text: "10. Mengurangi gadget sebelum tidur dapat meningkatkan kualitas tidur.", type: "radio", required: true, options: [{val:"benar", label:"Benar"}, {val:"salah", label:"Salah"}] }
+                { id: "mental_10", text: "10. Mengurangi penggunaan gadget sebelum tidur dapat meningkatkan kualitas tidur.", type: "radio", required: true, options: [{val:"benar", label:"Benar"}, {val:"salah", label:"Salah"}] }
             ]
         },
+        // --- Bagian IIC: Sikap Mental ---
         {
-            id: "sikap",
-            title: "Bagian IV: Sikap (Attitude)",
-            description: "Pilihlah angka yang sesuai dengan pendapat Anda. Keterangan lengkap ada di tabel di bawah.",
+            id: "sikap_mental",
+            title: "Bagian IIC: Sikap (Kesehatan Mental)",
+            description: "Pilihlah angka yang sesuai dengan pendapat Anda.",
             scaleType: "likert5", 
             questions: [
-                "Saya merasa informasi kespro penting bagi remaja.",
-                "Saya percaya menjaga kesehatan mental sama pentingnya dengan fisik.",
-                "Remaja berhak mendapatkan edukasi kespro yang benar.",
-                "Saya merasa nyaman membicarakan topik kesehatan mental.",
-                "Saya tidak malu mencari bantuan saat masalah emosional.",
-                "Remaja harus tahu mencegah perilaku seksual berisiko.",
-                "Penting mengenali tanda stres pada diri sendiri.",
-                "Informasi kespro harus berasal dari sumber terpercaya.",
-                "Aktivitas fisik dapat membantu kesehatan mental.",
-                "Aplikasi edukasi membantu memahami topik sensitif."
-            ].map((q, i) => ({ id: `sikap_${i+1}`, text: `${i+1}. ${q}`, type: "scale", min:1, max:5, required: true }))
+                "Saya merasa kesehatan mental memengaruhi cara remaja mengambil keputusan.",
+                "Saya percaya penting untuk mengenali tanda stres pada diri sendiri.",
+                "Saya setuju bahwa aktivitas fisik dapat membantu kesehatan mental.",
+                "Saya menilai bahwa masalah kesehatan mental dapat dialami oleh siapa saja, termasuk remaja.",
+                "Saya percaya bahwa membicarakan kesehatan mental dapat membantu mencegah masalah serius.",
+                "Saya meyakini bahwa dukungan dari orang sekitar penting bagi kesehatan mental remaja.",
+                "Saya menilai kesehatan mental berpengaruh terhadap kemampuan remaja belajar dan bersosialisasi.",
+                "Saya menganggap masalah kesehatan mental hanya dialami oleh orang yang lemah.",
+                "Saya merasa remaja seharusnya selalu bisa mengatasi masalah mentalnya sendiri.",
+                "Saya menilai masalah kesehatan mental akan hilang dengan sendirinya tanpa perlu perhatian."
+            ].map((q, i) => ({ id: `sikap_mental_${i+1}`, text: `${i+1}. ${q}`, type: "scale", min:1, max:5, required: true }))
         },
+        // --- Bagian IIIC: Perilaku Mental ---
         {
-            id: "perilaku",
-            title: "Bagian V: Perilaku",
-            description: "Jawablah sesuai kebiasaan Anda sehari-hari.",
+            id: "perilaku_mental",
+            title: "Bagian IIIC: Perilaku (Kesehatan Mental)",
+            description: "Jawablah 'Ya' atau 'Tidak' berdasarkan kebiasaan Anda dalam 1 bulan terakhir.",
             questions: [
-                { id: "perilaku_1", text: "1. Dalam 1 bulan terakhir, seberapa sering Anda merasa stres?", type: "radio", required: true, options: scaleLabels.frequency.map((l, i) => ({val: i.toString(), label: l})) },
-                { id: "perilaku_2", text: "2. Dalam 2 minggu terakhir, apakah Anda pernah kesulitan tidur?", type: "radio", required: true, options: [{val:"ya", label:"Ya"}, {val:"tidak", label:"Tidak"}] },
-                { id: "perilaku_3", text: "3. Seberapa sering Anda berolahraga?", type: "radio", required: true, options: scaleLabels.frequency_sport.map((l, i) => ({val: i.toString(), label: l})) },
-                { id: "perilaku_4", text: "4. Saya menghindari perilaku seksual berisiko.", type: "radio", required: true, options: [{val:"ya", label:"Ya"}, {val:"tidak", label:"Tidak"}] },
-                { id: "perilaku_5", text: "5. Pernah berkonsultasi masalah pribadi ke orang dewasa terpercaya.", type: "radio", required: true, options: [{val:"ya", label:"Ya"}, {val:"tidak", label:"Tidak"}] },
-                { id: "perilaku_6", text: "6. Memeriksa informasi kesehatan sebelum mempercayainya.", type: "radio", required: true, options: [{val:"ya", label:"Ya"}, {val:"tidak", label:"Tidak"}] },
-                { id: "perilaku_7", text: "7. Menerapkan strategi coping (menulis, relaksasi, napas dalam).", type: "radio", required: true, options: [{val:"0", label:"Tidak pernah"}, {val:"1", label:"Kadang-kadang"}, {val:"2", label:"Sering"}] },
-                { id: "perilaku_8", text: "8. Tidur minimal 7 jam per hari.", type: "radio", required: true, options: [{val:"ya", label:"Ya"}, {val:"tidak", label:"Tidak"}] },
-                { id: "perilaku_9", text: "9. Mengurangi gadget sebelum tidur.", type: "radio", required: true, options: [{val:"ya", label:"Ya"}, {val:"tidak", label:"Tidak"}] },
-                { id: "perilaku_10", text: "10. Menjaga kebersihan diri saat menstruasi/pubertas.", type: "radio", required: true, options: [{val:"ya", label:"Ya"}, {val:"tidak", label:"Tidak"}] }
-            ]
+                "Saya meluangkan waktu untuk memperhatikan dan memahami perasaan diri sendiri.",
+                "Saya mencoba menenangkan diri ketika merasa cemas, marah, atau tertekan.",
+                "Saya melakukan aktivitas yang membantu menjaga suasana hati tetap baik (hobi, olahraga, ibadah).",
+                "Saya mengatur waktu istirahat atau tidur ketika merasa lelah secara mental.",
+                "Saya menghindari perilaku yang dapat memperburuk kondisi kesehatan mental saya.",
+                "Saya membicarakan perasaan atau masalah pribadi kepada orang yang saya percaya.",
+                "Saya meminta bantuan orang dewasa/profesional ketika merasa kewalahan secara emosional.",
+                "Saya membatasi penggunaan gawai/media sosial ketika merasa hal tersebut memengaruhi kesehatan mental.",
+                "Saya menerapkan kebiasaan sehari-hari yang membantu menjaga kesehatan mental saya.",
+                "Saya menyadari tanda-tanda ketika kondisi mental saya mulai menurun."
+            ].map((q, i) => ({ id: `perilaku_mental_${i+1}`, text: `${i+1}. ${q}`, type: "radio", required: true, options: [{val:"ya", label:"Ya"}, {val:"tidak", label:"Tidak"}] }))
         },
+        // --- Bagian D: Self Efficacy ---
         {
             id: "self_efficacy",
-            title: "Bagian VI: Kemampuan Diri (Self-Efficacy)",
-            description: "Seberapa yakin Anda dengan kemampuan diri Anda? (Lihat keterangan skala di bawah)",
+            title: "Bagian D: Kemampuan Diri (Self-Efficacy)",
+            description: "Seberapa yakin Anda dengan kemampuan diri Anda?",
             scaleType: "likert5",
             questions: [
                 "Mampu memahami info kesehatan dari aplikasi/online.",
@@ -584,11 +643,12 @@
                 "Mampu meminta bantuan saat menghadapi masalah."
             ].map((q, i) => ({ id: `se_${i+1}`, text: `${i+1}. ${q}`, type: "scale", min:1, max:5, required: true }))
         },
+        // --- WHO-5 ---
         {
             id: "who5",
             title: "Bagian VII: WHO-5 Well Being Index",
-            description: "Bagaimana perasaan Anda dalam 2 minggu terakhir? (Lihat keterangan skala di bawah)",
-            scaleType: "who5", // Uses the WHO5 detailed legend
+            description: "Bagaimana perasaan Anda dalam 2 minggu terakhir?",
+            scaleType: "who5", 
             questions: [
                 "Saya merasa ceria dan bersemangat.",
                 "Saya merasa tenang dan damai.",
@@ -621,8 +681,7 @@
         let headerHTML = `<div class="section-title">${section.title}</div>`;
         if (section.description) headerHTML += `<div class="section-desc">${section.description}</div>`;
         
-        // --- LEGEND BOX LOGIC (New) ---
-        // If the section uses a specific scale type, render the legend box
+        // --- LEGEND BOX LOGIC ---
         if (section.scaleType && scaleLabels[section.scaleType]) {
             const labels = scaleLabels[section.scaleType];
             const startVal = section.scaleType === 'who5' ? 0 : 1;
@@ -695,7 +754,6 @@
                 else if (q.type === 'scale') {
                     const min = q.min;
                     const max = q.max;
-                    // Pass the scaleType to the function to generate dynamic feedback text
                     const scaleType = section.scaleType || 'likert5';
                     
                     let scales = `<div class="scale-wrapper"><div class="scale-container">`;
@@ -711,7 +769,6 @@
                     }
                     scales += `</div>`;
                     
-                    // Dynamic Feedback Element
                     const savedVal = formData[q.id];
                     let feedbackText = "";
                     if(savedVal) {
@@ -721,7 +778,6 @@
                     }
                     
                     scales += `<div id="feedback_${q.id}" class="scale-feedback ${savedVal ? 'visible' : ''}">${feedbackText}</div></div>`;
-                    
                     qGroup.innerHTML += scales;
                 }
                 
@@ -756,11 +812,9 @@
         }
     }
 
-    // NEW: Handle Scale Click with Text Feedback
     function handleScaleClick(el, id, val, scaleType, minVal) {
         saveData(id, val);
         
-        // Update feedback text
         const feedbackEl = document.getElementById(`feedback_${id}`);
         if(feedbackEl && scaleLabels[scaleType]) {
             const index = parseInt(val) - minVal;
@@ -840,6 +894,7 @@
         btn.innerText = 'Mengirim...';
         btn.disabled = true;
 
+        // **PLACE YOUR GOOGLE SCRIPT URL HERE**
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyKkOsZLmrJ7jxxjxD1bfBOojMwZbvY1QQTzkqe4ugfjnXSp7nFqHKMHBrheclxPc09/exec'; 
 
         formData['timestamp'] = new Date().toISOString();
