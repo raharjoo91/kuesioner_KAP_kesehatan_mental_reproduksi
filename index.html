@@ -399,14 +399,6 @@
             "Ragu-ragu / Netral",
             "Setuju",
             "Sangat Setuju"
-        ],
-        who5: [
-            "Tidak Pernah",
-            "Jarang (Beberapa kali)",
-            "Kadang-kadang (Kurang dari separuh waktu)",
-            "Cukup Sering (Lebih dari separuh waktu)",
-            "Sering (Sebagian besar waktu)",
-            "Sepanjang Waktu"
         ]
     };
 
@@ -642,20 +634,6 @@
                 "Yakin dapat mengontrol gadget.",
                 "Mampu meminta bantuan saat menghadapi masalah."
             ].map((q, i) => ({ id: `se_${i+1}`, text: `${i+1}. ${q}`, type: "scale", min:1, max:5, required: true }))
-        },
-        // --- WHO-5 ---
-        {
-            id: "who5",
-            title: "Bagian VII: WHO-5 Well Being Index",
-            description: "Bagaimana perasaan Anda dalam 2 minggu terakhir?",
-            scaleType: "who5", 
-            questions: [
-                "Saya merasa ceria dan bersemangat.",
-                "Saya merasa tenang dan damai.",
-                "Saya merasa aktif dan penuh energi.",
-                "Saya bangun pagi dengan perasaan segar.",
-                "Saya merasa kegiatan sehari-hari memuaskan."
-            ].map((q, i) => ({ id: `who_${i+1}`, text: `${i+1}. ${q}`, type: "scale", min:0, max:5, required: true }))
         }
     ];
 
